@@ -1,0 +1,117 @@
+API schema
+----------
+
+-> collection : catorgory
+
+HTTp Request : POST
+----------------------
+
+1: POST /api/addCat/:catName
+
+adds a new category of items 
+eg: fashion, books
+
+2: POST /api/item/:catName
+
+adds a new item in the specified category
+
+body={
+	
+	product_name : string minlen(3),
+	description : string minlen(3),
+	price : integer,
+	offers: any,
+	in_stock: boolean,
+	features: any
+}
+
+
+3: POST api/review/:catName/:itemDocId
+
+catName=> category name
+adds a new user review to the item specified by item 
+document id and category name
+
+body={
+	author : string minlen(3),
+	rating: number,
+	verified : booolean,
+	comment : string
+}
+
+
+4: POST api/files/:catName/:itemDocId
+
+adds image and model files to a item document
+catName=> category name
+
+body={
+	model : any,
+	images: any
+
+}
+
+
+HTTp Request : GET
+-----------------
+all reference to ItemId=> database document id
+
+1: GET /api/categories
+
+get all categories
+
+
+2: GET /api/items/:catName
+
+get all items of specified category(catName)
+contains additional fields
+{
+	doc_id:  database document id,
+	id: entry number
+}
+
+
+3: GET /api/item/:catName/:itemId
+
+get item data of item with document id(itemId), category(catName)
+
+contains additional fields
+{
+	doc_id:  database document id,
+	id: entry number
+}
+
+4: GET /api/reviews/:catName/:itemid
+
+gets all user reviews for a particular item with
+itemid=> document id
+catName=> category name
+
+
+HTTp Request : PUT
+-----------------
+
+1: PUT /api/item/:catName/:itemDocId
+updates a item data with document id itemDocId and cateogory name
+
+body={
+	
+	product_name : string minlen(3),
+	description : string minlen(3),
+	price : integer,
+	offers: any,
+	in_stock: boolean,
+	features: any,
+	model : any,
+	images: any
+}
+
+
+HTTp Request : DELETE
+-------------------
+
+1: DELETE /api/item/:catName/:itemDocId
+deletes an item from a category
+
+itemDocId=> document id of the item
+catName=> category name
